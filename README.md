@@ -22,7 +22,7 @@ End-to-end ETL from Kaggle to Snowflake. Orchestrated with Airflow.
 - Schedule: weekly, Monday 03:00 (CRON `0 3 * * 1`).  
 - Monitoring: Prometheus config at `~/airflow/prometheus.yml` (statsd exporter + Grafana planned). Mapping stage pending.
 
-## How to run (minimal)
+## How to run 
 1. On Windows: run  
    ```bash
    python extract.py
