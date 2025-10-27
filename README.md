@@ -20,7 +20,6 @@ End-to-end ETL from Kaggle to Snowflake. Orchestrated with Airflow.
 - Local flow: run `extract.py` and `transform.py` on Windows to produce `amazon_clean.csv`.  
 - Load: Airflow (WSL2) runs `etl_to_snowflake` DAG which uploads `amazon_clean.csv` into Snowflake table `PRODUCTS`.  
 - Schedule: weekly, Monday 03:00 (CRON `0 3 * * 1`).  
-- Monitoring: Prometheus config at `~/airflow/prometheus.yml` (statsd exporter + Grafana planned). Mapping stage pending.
 
 ## How to run 
 1. On Windows: run  
