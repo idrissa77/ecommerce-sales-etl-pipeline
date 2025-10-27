@@ -4,12 +4,16 @@ End-to-end ETL from Kaggle to Snowflake. Orchestrated with Airflow.
 
 ## Repo structure
 
+## 📂 Repo Structure
+
+```text
 📂 airflow/
 ├── dags/
 │ └── etl_to_snowflake.py
 └── scripts/
 ├── extract.py
 └── transform.py
+```
 
 ## Quick facts
 - Source data: Kaggle — Amazon Sales Dataset.  
