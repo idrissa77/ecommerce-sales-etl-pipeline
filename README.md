@@ -1,4 +1,4 @@
-# ETL Pipeline — Amazon Sales (Airflow + Snowflake)
+# ETL Pipeline - Amazon Sales (Airflow + Snowflake)
 
 # Business Context
 A retail e-commerce company wants to analyze its sales data to identify top-selling products, peak demand periods, and emerging trends. Centralizing all data from website, physical stores, and social media into a single warehouse enables better decision-making.
@@ -20,7 +20,7 @@ This project builds an ETL pipeline that extracts raw sales data from multiple s
 ```
 
 ## Quick facts
-- Source data: Kaggle — Amazon Sales Dataset.  
+- Source data: Kaggle - Amazon Sales Dataset.  
 - Local flow: run `extract.py` and `transform.py` on Windows to produce `amazon_clean.csv`.  
 - Load: Airflow (WSL2) runs `etl_to_snowflake` DAG which uploads `amazon_clean.csv` into Snowflake table `PRODUCTS`.  
 - Schedule: weekly, Monday 03:00 (CRON `0 3 * * 1`).  
