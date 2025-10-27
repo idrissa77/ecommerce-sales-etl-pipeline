@@ -1,6 +1,10 @@
 # ETL Pipeline — Amazon Sales (Airflow + Snowflake)
 
-End-to-end ETL from Kaggle to Snowflake. Orchestrated with Airflow.
+# Business Context
+A retail e-commerce company wants to analyze its sales data to identify top-selling products, peak demand periods, and emerging trends. Centralizing all data from website, physical stores, and social media into a single warehouse enables better decision-making.
+
+# Technical Context
+This project builds an ETL pipeline that extracts raw sales data from multiple sources, transforms it (cleaning, enrichment, aggregation), and loads it into a Snowflake warehouse for analysis. The workflow is automated and orchestrated with Apache Airflow.
 
 ## Repo structure
 
