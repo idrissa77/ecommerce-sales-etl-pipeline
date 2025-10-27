@@ -1,42 +1,38 @@
-# 🧩 ETL Pipeline for E-commerce Sales Analysis
+# ETL Pipeline — Amazon Sales (Airflow + Snowflake)
 
-## 📊 Business Context
-A retail e-commerce company wants to analyze its sales data to identify:
-- Best-selling products  
-- High-demand periods  
-- Emerging trends  
+End-to-end ETL from Kaggle to Snowflake. Orchestrated with Airflow.
 
-The goal is to centralize all sales data from multiple platforms into a cloud data warehouse for unified analysis and better decision-making.
+## Repo structure
+📂 airflow/
+├── dags/
+│ └── etl_to_snowflake.py
+└── scripts/
+├── extract.py
+└── transform.py
 
----
+markdown
+Copy code
 
-## ⚙️ Technical Overview
-This project builds a **complete ETL pipeline** that extracts raw sales data from Kaggle, cleans and transforms it, and loads it into **Snowflake** for analytics.  
-The entire workflow is automated and orchestrated with **Apache Airflow**.
+## Quick facts
+- Source data: Kaggle — Amazon Sales Dataset.  
+- Local flow: run `extract.py` and `transform.py` on Windows to produce `amazon_clean.csv`.  
+- Load: Airflow (WSL2) runs `etl_to_snowflake` DAG which uploads `amazon_clean.csv` into Snowflake table `PRODUCTS`.  
+- Schedule: weekly, Monday 03:00 (CRON `0 3 * * 1`).  
+- Monitoring: Prometheus config at `~/airflow/prometheus.yml` (statsd exporter + Grafana planned). Mapping stage pending.
 
-### 🪶 Stack
-| Layer | Technology | Purpose |
-|:------|:------------|:--------|
-| Extraction | Python (`requests`, `pandas`) | Fetch data from Kaggle dataset |
-| Transformation | Pandas | Cleaning, formatting, deduplication |
-| Load | Snowflake | Centralized analytics warehouse |
-| Orchestration | Apache Airflow | DAG automation & scheduling |
-| Monitoring (in progress) | StatsD → Prometheus → Grafana | Track DAG execution & task duration |
+## How to run (minimal)
+1. On Windows: run  
+   ```bash
+   python extract.py
+   python transform.py
+=> produces amazon_clean.csv.
+2. On WSL2 (Airflow): place DAG at ~/airflow/dags/etl_to_snowflake.py, ensure Airflow connection snowflake_conn is set, then start scheduler and webserver. DAG will run and load into Snowflake.
 
----
+Expected result
+PRODUCTS table populated in Snowflake with cleaned sales data ready for BI.
 
-## 🚀 Pipeline Steps
-1. **Extract**: Read sales dataset from Kaggle  
-   Dataset used → [Amazon Sales Dataset](https://www.kaggle.com/datasets/karkavelrajaj/amazon-sales-dataset)  
-   (`extract.py`)
-2. **Transform**: Clean data (remove nulls, fix formats, deduplicate)  
-   (`transform.py`)
-3. **Load**: Push transformed data into **Snowflake** for analysis  
-   (connection managed via Airflow connection or Snowflake hook)
-4. **Orchestrate**: Schedule and monitor ETL workflow using Airflow DAG  
-   (`~/airflow/dags/etl_to_snowflake.py`)
-5. **Monitor** (in progress): Setup StatsD + Prometheus + Grafana for observability
+Next steps 
+Finalize StatsD → Prometheus mapping.
 
----
+Build Grafana dashboards for DAG health, task duration, failures.
 
-## 🧱 Airflow DAG Structure
